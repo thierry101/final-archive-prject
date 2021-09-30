@@ -1,0 +1,246 @@
+<div class="container-fluid mt-4">
+    <section class="vh-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6 text-black">
+      
+              <div class="px-5 ms-xl-4">
+                <span class="h1 fw-bold mb-0">Logo</span>
+              </div>
+      
+              <h3 class="fw-normal mt-5 pb-3 text-center" style="letter-spacing: 1px;"><strong>{{title}}</strong> </h3>
+              <div class="align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+<!-- *************************** LOGIN PAGE **************************************************** -->
+                <form *ngIf="loginChoice" style="width: 23rem;">
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example17">Nom d'utilisateur</label>
+                    <input type="email" [(ngModel)]="credential.username" name="username12" id="form2Example17" class="form-control form-control-lg" />
+                    <ng-container *ngIf="errors">
+                        <div *ngFor="let item of errors | keyvalue"> 
+                            <span class="text-danger" *ngIf="(item.key=='username' && !myForm.username?.touched)">
+                                {{item.value}}
+                            </span>
+                        </div>
+                    </ng-container>
+                </div>
+      
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example27">Mot de passe</label>
+                    <input type="password" [(ngModel)]="credential.password" name="password10" id="form2Example27" class="form-control form-control-lg" />
+                    <ng-container *ngIf="errors">
+                        <div *ngFor="let item of errors | keyvalue"> 
+                            <span class="text-danger" *ngIf="(item.key=='password' && !myForm.username?.touched)">
+                                {{item.value}}
+                            </span>
+                        </div>
+                    </ng-container>
+                </div>
+      
+                  <div class="pt-1 mb-4">
+                    <button class="btn btn-info btn-lg btn-block" (click)="loginUser()" type="button">Se connecter</button>
+                  </div>
+      
+                  <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Mot de passe oublié ?</a></p>
+                  <p>Vous n'avez pas de compte ? <a (click)="choiceRegister()" href="#!" class="link-info">S'enregistrer</a></p>
+                </form>
+
+<!-- ****************************** REGISTER PAGE ************************************************* -->
+                <form *ngIf="!loginChoice" novalidate [formGroup]="registerFrom" (ngSubmit)="registerUser()" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="inputUsername4" class="form-label">Nom d'utilisateur</label>
+                        <input type="text" formControlName="username" class="form-control" id="inputUsername4"
+                        [ngClass]="{'is-invalid':myForm.username?.touched && !myForm.username?.valid, 
+                        'is-valid':myForm.username?.valid}">
+                        <div class="invalid-feedback"> 
+                            <span *ngIf="myForm.username?.errors?.required">Ce champ est réquis</span>
+                            <span *ngIf="myForm.username?.errors?.minlength"> Ce champ doit avoir au moins 4 caractères</span>
+                        </div>
+                        <ng-container *ngIf="errors">
+                            <div *ngFor="let item of errors | keyvalue"> 
+                                <span class="text-danger" *ngIf="(item.key=='username' && !myForm.username?.touched)">
+                                    {{item.value}}
+                                </span>
+                            </div>
+                        </ng-container>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputName4" class="form-label">Nom</label>
+                        <input formControlName="name" type="text" class="form-control" id="inputName4"
+                        [ngClass]="{'is-invalid':myForm.name?.touched && !myForm.name?.valid, 
+                        'is-valid':myForm.name?.valid}">
+                        <div class="invalid-feedback"> 
+                            <span *ngIf="myForm.name?.errors?.required">Ce champ est réquis</span>
+                            <span *ngIf="myForm.name?.errors?.minlength"> Ce champ doit avoir au moins 2 caractères</span>
+                        </div>
+                        <ng-container *ngIf="errors">
+                            <div *ngFor="let item of errors | keyvalue"> 
+                                <span class="text-danger" *ngIf="(item.key=='name' && !myForm.username?.touched)">
+                                    {{item.value}}
+                                </span>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputSurname4" class="form-label">Prénom</label>
+                        <input type="email" formControlName="surname" class="form-control" id="inputSurname4"
+                        [ngClass]="{'is-invalid':myForm.surname?.touched && !myForm.surname?.valid, 
+                        'is-valid':myForm.surname?.valid}">
+                        <div class="invalid-feedback"> 
+                            <span *ngIf="myForm.surname?.errors?.required">Ce champ est réquis</span>
+                            <span *ngIf="myForm.surname?.errors?.minlength"> Ce champ doit avoir au moins 2 caractères</span>
+                        </div>
+                        <ng-container *ngIf="errors">
+                            <div *ngFor="let item of errors | keyvalue"> 
+                                <span class="text-danger" *ngIf="(item.key=='surname' && !myForm.username?.touched)">
+                                    {{item.value}}
+                                </span>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputEmail4" class="form-label">Email</label>
+                        <input type="email" formControlName="email" class="form-control" id="inputEmail4"
+                        [ngClass]="{'is-invalid':myForm.email?.touched && !myForm.email?.valid, 
+                        'is-valid':myForm.email?.valid}">
+                        <div class="invalid-feedback"> 
+                            <span *ngIf="myForm.email?.errors?.required">Ce champ est réquis</span>
+                            <span *ngIf="myForm.email?.errors?.pattern"> Entrez une adresse email valide</span>
+                        </div>
+                        <ng-container *ngIf="errors">
+                            <div *ngFor="let item of errors | keyvalue"> 
+                                <span class="text-danger" *ngIf="(item.key=='email' && !myForm.username?.touched)">
+                                    {{item.value}}
+                                </span>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="col-6">
+                        <label for="inputFunction" class="form-label">Fonction</label>
+                        <select id="inputFunction" formControlName="role" class="form-select"
+                        [ngClass]="{'is-invalid':myForm.role?.touched && !myForm.role?.valid, 
+                        'is-valid':myForm.role?.valid}">
+                            <option *ngFor="let item of roles" value="{{item}}">{{item}}</option>
+                        </select>
+                        <div class="invalid-feedback"> 
+                            <span *ngIf="myForm.role?.errors?.required">Ce champ est réquis</span>
+                        </div>
+                        <ng-container *ngIf="errors">
+                            <div *ngFor="let item of errors | keyvalue"> 
+                                <span class="text-danger" *ngIf="(item.key=='role' && !myForm.username?.touched)">
+                                    {{item.value}}
+                                </span>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="col-6">
+                        <label for="inputGender" class="form-label">Sexe</label>
+                        <select id="inputGender" formControlName="gender" class="form-select"
+                        [ngClass]="{'is-invalid':myForm.gender?.touched && !myForm.gender?.valid, 
+                        'is-valid':myForm.gender?.valid}">
+                            <option *ngFor="let item of genders" value="{{item}}">{{item}}</option>
+                        </select>
+                        <div class="invalid-feedback"> 
+                            <span *ngIf="myForm.gender?.errors?.required">Ce champ est réquis</span>
+                        </div>
+                        <ng-container *ngIf="errors">
+                            <div *ngFor="let item of errors | keyvalue"> 
+                                <span class="text-danger" *ngIf="(item.key=='gender' && !myForm.username?.touched)">
+                                    {{item.value}}
+                                </span>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div formGroupName="passwordGroup" class="row mt-4">
+                        <div class="col-md-12">
+                            <label for="inputPassword4" class="form-label">Mot de passe</label>
+                            <div class="input-group mt-1">
+                                <input formControlName="password1" type="password" placeholder="Mot de passe" 
+                                class="form-control" id="inputPassword4"
+                                [ngClass]="{
+                                'is-invalid':  myForm.passwordGroup.get('password1')?.touched && myForm.passwordGroup.get('password1')?.errors,
+                                'is-valid':myForm.passwordGroup.get('password1')?.valid}">
+                                <button (click)="showPassword()" class="btn btn-outline-secondary" type="button" id="button-addon1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                    </svg>
+                                </button>
+                                <div class="invalid-feedback"> 
+                                    <span *ngIf="myForm.passwordGroup.get('password1')?.errors?.required">Ce champ est réquis</span>
+                                    <span *ngIf="myForm.passwordGroup.get('password1')?.errors?.minlength">Le mot de passe doit avoir au moins 6 caractères</span>
+                                </div>
+                                <ng-container *ngIf="errors">
+                                    <div *ngFor="let item of errors | keyvalue"> 
+                                        <span class="text-danger" *ngIf="(item.key=='password1' && !myForm.username?.touched)">
+                                            {{item.value}}
+                                        </span>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <label for="inputPassword41" class="form-label">Ressaisissez</label>
+                            <input type="password" formControlName="password2" class="form-control" id="inputPassword41"
+                            class="form-control" id="inputPassword2"
+                            [ngClass]="{
+                                'is-invalid':  myForm.passwordGroup.get('password2')?.touched && myForm.passwordGroup.get('password2')?.errors?.MatchPassword,
+                                'is-valid':myForm.passwordGroup.get('password2')?.valid}">
+                            <div class="">
+                                <span class="text-danger" *ngIf="myForm.passwordGroup.get('password2')?.touched && myForm.passwordGroup.get('password2')?.errors?.MatchPassword">Les mots de passe ne correspondent pas</span>
+                            </div>
+                            <ng-container *ngIf="errors">
+                                <div *ngFor="let item of errors | keyvalue"> 
+                                    <span class="text-danger" *ngIf="(item.key=='password2' && !myForm.username?.touched)">
+                                        {{item.value}}
+                                    </span>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    
+                    <!-- <div class="col-12">
+                        <label for="inputAddress2" class="form-label">Address 2</label>
+                        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputCity" class="form-label">City</label>
+                        <input type="text" class="form-control" id="inputCity">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputState" class="form-label">State</label>
+                        <select id="inputState" class="form-select">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="inputZip" class="form-label">Zip</label>
+                        <input type="text" class="form-control" id="inputZip">
+                    </div> -->
+                    <!-- <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">
+                            Check me out
+                            </label>
+                        </div>
+                    </div> -->
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">S'enregistrer</button>
+                        <br>
+                        <h4>ou</h4>
+                        <p> <a (click)="choiceLogin()" href="#">Se connecter</a> </p>
+                    </div>
+                </form>
+
+
+              </div>
+            </div>
+            <div class="col-sm-6 px-0 d-none d-sm-block">
+              <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/img3.jpg" alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
+            </div>
+          </div>
+        </div>
+      </section>
+</div>
