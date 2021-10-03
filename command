@@ -1,0 +1,1 @@
+ng build --watch true --output-path <your_static_scripts_dir>

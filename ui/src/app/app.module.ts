@@ -6,11 +6,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AuthenticationComponent } from './components/authentication/authentication.component';
+import { ArchivesComponent } from './components/archives/archives.component';
+import { AddEditComponent } from './components/archives/add-edit/add-edit.component';
+import { HeaderComponent } from './components/header/header.component';
+import { ROUTING } from './app.routing';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    ArchivesComponent,
+    AddEditComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -18,6 +25,7 @@ import { AuthenticationComponent } from './components/authentication/authenticat
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ROUTING,
   ],
   providers: [],
   bootstrap: [AppComponent]

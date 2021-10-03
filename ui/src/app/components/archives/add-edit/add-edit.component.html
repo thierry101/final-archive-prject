@@ -1,0 +1,117 @@
+<form #formDir="ngForm" novalidate (ngSubmit)="registerArchive()" [formGroup]="archiveFrom" class="row g-3">
+    <div class="col-md-12">
+      <label for="inputTitle4" class="form-label"><strong>Titre principal</strong> </label>
+      <input type="text" formControlName="title" class="form-control" id="inputTitle4"
+      [ngClass]="{
+        'is-invalid':archiveFrom.get('title')?.touched && !archiveFrom.get('title')?.valid,
+        'is-valid':archiveFrom.get('title')?.valid
+        }">
+        <div class="invalid-feedback"> 
+            <span *ngIf="archiveFrom.get('title')?.errors?.required">Ce champ est réquis</span>
+            <span *ngIf="archiveFrom.get('title')?.errors?.minlength"> Ce champ doit avoir au moins 4 caractères</span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <label for="inputDate" class="form-label"><strong>Date</strong> </label>
+        <input type="date" formControlName="date" class="form-control" id="inputDate"
+        [ngClass]="{
+            'is-invalid':archiveFrom.get('date')?.touched && !archiveFrom.get('date')?.valid,
+            'is-valid':archiveFrom.get('date')?.valid
+            }">
+            <div class="invalid-feedback"> 
+                <span *ngIf="archiveFrom.get('date')?.errors?.required">Ce champ est réquis</span>
+            </div>
+      </div>
+      <div class="col-md-6">
+        <label for="inputTime" class="form-label"><strong>Heure</strong> </label>
+        <input type="time" formControlName="time" class="form-control" id="inputTime"
+        [ngClass]="{
+            'is-invalid':archiveFrom.get('time')?.touched && !archiveFrom.get('time')?.valid,
+            'is-valid':archiveFrom.get('time')?.valid
+            }">
+            <div class="invalid-feedback"> 
+                <span *ngIf="archiveFrom.get('time')?.errors?.required">Ce champ est réquis</span>
+            </div>
+      </div>
+    <!-- pour le nom de l'utilisateur on prendra le current user -->
+    <div class="col-md-6">
+        <label for="inputState" class="form-label"><strong>Service</strong> </label>
+        <select formControlName="service" id="inputState" class="form-select"
+        [ngClass]="{
+            'is-invalid':archiveFrom.get('service')?.touched && !archiveFrom.get('service')?.valid,
+            'is-valid':archiveFrom.get('service')?.valid
+        }">
+        <option selected>Choose...</option>
+        <option *ngFor="let item of allServices">{{item.name}}</option>
+        </select>
+        <div class="invalid-feedback"> 
+            <span *ngIf="archiveFrom.get('service')?.errors?.required">Ce champ est réquis</span>
+        </div>
+      </div>
+    <div class="col-md-6">
+      <label for="inputDescription4" class="form-label"><strong>Description</strong> </label>
+      <textarea formControlName="description" class="form-control" id="inputDescription4" name="" id="" cols="4" rows="4"
+      [ngClass]="{
+        'is-invalid':archiveFrom.get('description')?.touched && !archiveFrom.get('description')?.valid,
+        'is-valid':archiveFrom.get('description')?.valid
+        }"></textarea>
+        <div class="invalid-feedback"> 
+            <span *ngIf="archiveFrom.get('description')?.errors?.required">Ce champ est réquis</span>
+            <span *ngIf="archiveFrom.get('description')?.errors?.minlength"> Ce champ doit avoir au moins 5 caractères</span>
+        </div>
+    </div>
+    <hr>
+    <label for="inputAddress" class="form-label text-center"><strong>INSERER VOS FICHIERS</strong> </label>
+    <div class="row" formArrayName="fileUpload" *ngFor="let item of filesList.controls, let i=index">
+        <div class="col-12">
+            <div class="input-group mb-3" [formGroupName]="i">
+                <span class="input-group-text">
+                    <input (change)="getUploadFile($event, i)" type="file" class="form-control">
+                </span>
+                <input name="lname" type="text" class="form-control" id="{{'fileToSend' + i}}" formControlName="titleFile">
+                <span class="input-group-text">
+                    <button (click)="deleteFile(i)" class="btn btn-danger" title="Supprimer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 mt-1">
+        <button (click)="addFile()" type="button" class="btn btn-info">Ajouter un fichier</button>
+    </div>
+    <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+        <button type="submit" class="btn btn-primary">Sauvegarder</button>
+      </div>
+    <!-- <div class="col-12">
+      <label for="inputAddress2" class="form-label">Address 2</label>
+      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+    </div>
+    <div class="col-md-6">
+      <label for="inputCity" class="form-label">City</label>
+      <input type="text" class="form-control" id="inputCity">
+    </div>
+    <div class="col-md-4">
+      <label for="inputState" class="form-label">State</label>
+      <select id="inputState" class="form-select">
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label for="inputZip" class="form-label">Zip</label>
+      <input type="text" class="form-control" id="inputZip">
+    </div> -->
+    <!-- <div class="col-12">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="gridCheck">
+        <label class="form-check-label" for="gridCheck">
+          Check me out
+        </label>
+      </div>
+    </div> -->
+    
+  </form>
