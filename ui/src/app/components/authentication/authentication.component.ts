@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { roles, genders, ValidatePassword, showPassword } from 'src/shared/shared'
+import { roles, genders, ValidatePassword, showError } from 'src/shared/shared'
 
 @Component({
   selector: 'app-authentication',
@@ -55,7 +55,6 @@ export class AuthenticationComponent implements OnInit {
     (error=>{
       if (error && error.status == 400) {
         this.errors = error.error
-        console.warn(this.errors)
       }
       else if (error.status == 500) {
         alert("Veuillez contacter l'administrateur")
@@ -66,11 +65,14 @@ export class AuthenticationComponent implements OnInit {
 
   loginUser(){
     this.auth.login(this.credential).subscribe(res => {
-      console.warn("the login are ", res)
+      if (res['token']) {
+        // redirect user
+        // console.warn("the login are ", res['token'])
+      }
     },(error =>{
       this.errors = []
       this.errors = error.error
-      showPassword(error, error.status, this.errors, error.error)
+      showError(error, error.status, this.errors, error.error)
     })
     )
   }

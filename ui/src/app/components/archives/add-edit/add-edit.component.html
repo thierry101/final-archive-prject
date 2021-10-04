@@ -10,6 +10,13 @@
             <span *ngIf="archiveFrom.get('title')?.errors?.required">Ce champ est réquis</span>
             <span *ngIf="archiveFrom.get('title')?.errors?.minlength"> Ce champ doit avoir au moins 4 caractères</span>
         </div>
+        <ng-container *ngIf="errors">
+          <div *ngFor="let item of errors | keyvalue"> 
+              <span class="text-danger" *ngIf="(item.key=='title' && !archiveFrom.get('title')?.touched)">
+                  {{item.value}}
+              </span>
+          </div>
+      </ng-container>
     </div>
     <div class="col-md-6">
         <label for="inputDate" class="form-label"><strong>Date</strong> </label>
@@ -18,21 +25,35 @@
             'is-invalid':archiveFrom.get('date')?.touched && !archiveFrom.get('date')?.valid,
             'is-valid':archiveFrom.get('date')?.valid
             }">
-            <div class="invalid-feedback"> 
-                <span *ngIf="archiveFrom.get('date')?.errors?.required">Ce champ est réquis</span>
+        <div class="invalid-feedback"> 
+            <span *ngIf="archiveFrom.get('date')?.errors?.required">Ce champ est réquis</span>
+        </div>
+        <ng-container *ngIf="errors">
+          <div *ngFor="let item of errors | keyvalue"> 
+              <span class="text-danger" *ngIf="(item.key=='date' && !archiveFrom.get('date')?.touched)">
+                  {{item.value}}
+              </span>
+          </div>
+      </ng-container>
+    </div>
+    <div class="col-md-6">
+      <label for="inputTime" class="form-label"><strong>Heure</strong> </label>
+      <input type="time" formControlName="time" class="form-control" id="inputTime"
+      [ngClass]="{
+          'is-invalid':archiveFrom.get('time')?.touched && !archiveFrom.get('time')?.valid,
+          'is-valid':archiveFrom.get('time')?.valid
+          }">
+          <div class="invalid-feedback"> 
+              <span *ngIf="archiveFrom.get('time')?.errors?.required">Ce champ est réquis</span>
+          </div>
+          <ng-container *ngIf="errors">
+            <div *ngFor="let item of errors | keyvalue"> 
+                <span class="text-danger" *ngIf="(item.key=='time' && !archiveFrom.get('time')?.touched)">
+                    {{item.value}}
+                </span>
             </div>
-      </div>
-      <div class="col-md-6">
-        <label for="inputTime" class="form-label"><strong>Heure</strong> </label>
-        <input type="time" formControlName="time" class="form-control" id="inputTime"
-        [ngClass]="{
-            'is-invalid':archiveFrom.get('time')?.touched && !archiveFrom.get('time')?.valid,
-            'is-valid':archiveFrom.get('time')?.valid
-            }">
-            <div class="invalid-feedback"> 
-                <span *ngIf="archiveFrom.get('time')?.errors?.required">Ce champ est réquis</span>
-            </div>
-      </div>
+        </ng-container>
+    </div>
     <!-- pour le nom de l'utilisateur on prendra le current user -->
     <div class="col-md-6">
         <label for="inputState" class="form-label"><strong>Service</strong> </label>
@@ -42,11 +63,18 @@
             'is-valid':archiveFrom.get('service')?.valid
         }">
         <option selected>Choose...</option>
-        <option *ngFor="let item of allServices">{{item.name}}</option>
+        <option *ngFor="let item of allServices" value="{{item.id}}">{{item.name}}</option>
         </select>
         <div class="invalid-feedback"> 
             <span *ngIf="archiveFrom.get('service')?.errors?.required">Ce champ est réquis</span>
         </div>
+        <ng-container *ngIf="errors">
+          <div *ngFor="let item of errors | keyvalue"> 
+              <span class="text-danger" *ngIf="(item.key=='service' && !archiveFrom.get('service')?.touched)">
+                  {{item.value}}
+              </span>
+          </div>
+      </ng-container>
       </div>
     <div class="col-md-6">
       <label for="inputDescription4" class="form-label"><strong>Description</strong> </label>
@@ -59,6 +87,13 @@
             <span *ngIf="archiveFrom.get('description')?.errors?.required">Ce champ est réquis</span>
             <span *ngIf="archiveFrom.get('description')?.errors?.minlength"> Ce champ doit avoir au moins 5 caractères</span>
         </div>
+        <ng-container *ngIf="errors">
+          <div *ngFor="let item of errors | keyvalue"> 
+              <span class="text-danger" *ngIf="(item.key=='description' && !archiveFrom.get('description')?.touched)">
+                  {{item.value}}
+              </span>
+          </div>
+      </ng-container>
     </div>
     <hr>
     <label for="inputAddress" class="form-label text-center"><strong>INSERER VOS FICHIERS</strong> </label>
@@ -70,13 +105,20 @@
                 </span>
                 <input name="lname" type="text" class="form-control" id="{{'fileToSend' + i}}" formControlName="titleFile">
                 <span class="input-group-text">
-                    <button (click)="deleteFile(i)" class="btn btn-danger" title="Supprimer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                    </button>
+                  <button (click)="deleteFile(i)" class="btn btn-danger" title="Supprimer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                  </button>
                 </span>
             </div>
+            <ng-container  *ngIf="errors">
+              <div *ngFor="let item of errors | keyvalue"> 
+                  <span class="text-danger" *ngIf="(item.key=='file' && !archiveFrom.get('file')?.touched)">
+                      {{item.value}}
+                  </span>
+              </div>
+            </ng-container>
         </div>
     </div>
     <div class="col-3 mt-1">

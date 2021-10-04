@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArchivesService } from 'src/app/services/archives/archives.service';
+import { showError, SwallModal, toastShow, foundToken } from 'src/shared/shared';
 
 @Component({
   selector: 'app-add-edit',
@@ -10,7 +11,10 @@ import { ArchivesService } from 'src/app/services/archives/archives.service';
 export class AddEditComponent implements OnInit {
 
   archiveFrom!:FormGroup;
-  allServices!:any
+  allServices!:any;
+  errors!:string[];
+  securityObject!:any;
+
 
   constructor(private fb:FormBuilder, private cd:ChangeDetectorRef, private archiService:ArchivesService) { }
 
@@ -23,6 +27,7 @@ export class AddEditComponent implements OnInit {
       service:['', [Validators.required]],
       description:['', [Validators.required, Validators.minLength(5)]],
       fileUpload:this.fb.array([this.uploadFile()]),
+      token:foundToken(this.securityObject),
     })
   }
 
@@ -85,10 +90,25 @@ export class AddEditComponent implements OnInit {
     }
 
   registerArchive(){
-    this.archiService.addArchive(this.archiveFrom.value).subscribe(res=>{
-      console.log("the result is ", res)
-    })
-    console.warn('the elements are ', this.archiveFrom.value)
+    if(this.archiveFrom.get("token")?.value === null){
+      SwallModal('info', "Erreur", "Vous devez être conntecté pour enregistrer une archive")
+    }
+    else{
+      this.archiService.addArchive(this.archiveFrom.value).subscribe(res=>{
+        console.warn(res)
+        if (res) {
+          toastShow("success", "Archive enregistrée avec succès")
+          this.errors = []
+          this.ngOnInit()
+        }
+      },
+      (error=>{
+        this.errors = []
+        this.errors = error.error
+        showError(error, error.status, this.errors, error.error)
+      }))
+      
+    }
   }
 
 }

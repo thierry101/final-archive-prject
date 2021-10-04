@@ -30,8 +30,10 @@ class LoginView(APIView):
 
         if len(errors) == 0:
             user = User.objects.get(username=username)
+            # print("the id user is ", user.role)
             payload = {
             'id':user.id,
+            'role':user.role,
             'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
             'iat':datetime.datetime.utcnow(),
             }
@@ -40,12 +42,10 @@ class LoginView(APIView):
             login(request, userr)
 
             response = Response()
-            response.set_cookie(key='jwt', value=token, httponly=True)
-            response.data= {'jwt':token}
-            print(response)
+            response.set_cookie(key='token', value=token, httponly=True)
+            response.data= {'token':token, "id":user.id}
             return response
         else:
-            print("the errors are ", errors)
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -122,24 +122,24 @@ class RegisterView(APIView):
         #     print(errors)
         #     return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
-class UserView(APIView):
-    def get(self, request):
-        if request.user.is_authenticated:
-            print("okk", request.user)
-        else:
-            print('no')
-        token = request.COOKIES.get('jwt')
-        if not token:
-            raise AuthenticationFailed("Unauthenticated!")
-        try:
-            payload = jwt.decode(token, 'secret', algorithm=["HS256"])
-        except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed('Unauthenticated!')
+# class UserView(APIView):
+#     def get(self, request):
+#         if request.user.is_authenticated:
+#             print("okk", request.user)
+#         else:
+#             print('no')
+#         token = request.COOKIES.get('jwt')
+#         if not token:
+#             raise AuthenticationFailed("Unauthenticated!")
+#         try:
+#             payload = jwt.decode(token, 'secret', algorithm=["HS256"])
+#         except jwt.ExpiredSignatureError:
+#             raise AuthenticationFailed('Unauthenticated!')
 
-        user = User.objects.filter(id=payload['id']).first()
-        serializer = RegisterUserSerializers(user)
+#         user = User.objects.filter(id=payload['id']).first()
+#         serializer = RegisterUserSerializers(user)
 
-        return Response(serializer.data)
+#         return Response(serializer.data)
 
 
 class LogoutView(APIView):

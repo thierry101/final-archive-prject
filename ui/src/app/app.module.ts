@@ -10,6 +10,7 @@ import { ArchivesComponent } from './components/archives/archives.component';
 import { AddEditComponent } from './components/archives/add-edit/add-edit.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ROUTING } from './app.routing';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ROUTING } from './app.routing';
     ReactiveFormsModule,
     HttpClientModule,
     ROUTING,
+    SweetAlert2Module.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

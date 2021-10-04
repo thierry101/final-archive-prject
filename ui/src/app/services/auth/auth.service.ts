@@ -20,11 +20,10 @@ export class AuthService {
   login(data:any):Observable<any>{
     return this.http.post<any>(this.APIUrl+"auth/api/login/", data).pipe(
       map(user=>{
-        console.warn("the token is ", user)
+        // console.warn("the user is ", user)
         var userDecode = jwt_decode(user.token)
-        console.warn("the user is ", userDecode)
         if (user && user.token) {
-          // localStorage.setItem("currentUser", user.token)
+          localStorage.setItem("currentUser", user.token)
         }
         // this.securityObject = user
         return user;
