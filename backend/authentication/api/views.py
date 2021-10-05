@@ -36,6 +36,7 @@ class LoginView(APIView):
             'role':user.role,
             'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
             'iat':datetime.datetime.utcnow(),
+            'key':'archiSoftware'
             }
 
             token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')

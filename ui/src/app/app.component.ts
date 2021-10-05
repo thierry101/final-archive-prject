@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { foundToken } from 'src/shared/shared';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  titles = 'ui';
+  title = 'Handle Files';
+
+  constructor() {
+   }
 }

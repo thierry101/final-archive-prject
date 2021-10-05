@@ -11,6 +11,7 @@ import { AddEditComponent } from './components/archives/add-edit/add-edit.compon
 import { HeaderComponent } from './components/header/header.component';
 import { ROUTING } from './app.routing';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { SingleArchiveComponent } from './components/archives/single-archive/single-archive.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     AuthenticationComponent,
     ArchivesComponent,
     AddEditComponent,
-    HeaderComponent
+    HeaderComponent,
+    SingleArchiveComponent
   ],
   imports: [
     BrowserModule,

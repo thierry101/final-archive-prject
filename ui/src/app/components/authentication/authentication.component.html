@@ -13,8 +13,8 @@
 <!-- *************************** LOGIN PAGE **************************************************** -->
                 <form *ngIf="loginChoice" style="width: 23rem;">
                   <div class="form-outline mb-4">
-                    <label class="form-label" for="form2Example17">Nom d'utilisateur</label>
-                    <input type="email" [(ngModel)]="credential.username" name="username12" id="form2Example17" class="form-control form-control-lg" />
+                    <label class="form-label" for="usernameInput">Nom d'utilisateur</label>
+                    <input type="text" [(ngModel)]="credential.username" name="username12" id="usernameInput" class="form-control form-control-lg" />
                     <ng-container *ngIf="errors">
                         <div *ngFor="let item of errors | keyvalue"> 
                             <span class="text-danger" *ngIf="(item.key=='username' && !myForm.username?.touched)">
@@ -25,8 +25,8 @@
                 </div>
       
                   <div class="form-outline mb-4">
-                    <label class="form-label" for="form2Example27">Mot de passe</label>
-                    <input type="password" [(ngModel)]="credential.password" name="password10" id="form2Example27" class="form-control form-control-lg" />
+                    <label class="form-label" for="passwordInput">Mot de passe</label>
+                    <input type="password" [(ngModel)]="credential.password" name="password10" id="passwordInput" class="form-control form-control-lg" />
                     <ng-container *ngIf="errors">
                         <div *ngFor="let item of errors | keyvalue"> 
                             <span class="text-danger" *ngIf="(item.key=='password' && !myForm.username?.touched)">

@@ -10,8 +10,24 @@ export class ArchivesService {
 
   readonly APIUrl = "http://127.0.0.1:8000/";
 
+  // ********************** get all service *****************************
   getAllService(){
     return this.http.get(this.APIUrl + "archive/api/list-service/")
+  }
+
+  // ********************** get all user **********************************
+  getAllUser(){
+    return this.http.get(this.APIUrl + "archive/api/list-user/")
+  }
+
+  
+  // ********************** get all Archives **********************************
+  getAllArchive(){
+  return this.http.get(this.APIUrl + "archive/api/list-archive/")
+  }
+
+  getArchiveDetail(id:number){
+    return this.http.get<any>(this.APIUrl + "archive/api/archive/"+id+"/")
   }
 
   addArchive(data:any){

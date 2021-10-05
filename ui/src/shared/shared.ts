@@ -59,21 +59,27 @@ export function foundToken(securityObject:any){
   var token = localStorage.getItem('currentUser')
   if (token) {
     securityObject = jwt_decode(token)
-    return securityObject
+    if (securityObject["key"]=="archiSoftware") {
+      console.log("the token is", securityObject)
+      return securityObject
+    }
+    else{
+      return null
+    }
   }
   else{
-    let resetSecurityObject= {
-      id:"",
-      exp:"",
-      iat:"",
-      username : "",
-      name : "",
-      surname : "",
-      token : "",
-      role : "",
-      isAuthenticated : false,
-    }
-    return resetSecurityObject
+    // let resetSecurityObject= {
+    //   id:"",
+    //   exp:"",
+    //   iat:"",
+    //   username : "",
+    //   name : "",
+    //   surname : "",
+    //   token : "",
+    //   role : "",
+    //   isAuthenticated : false,
+    // }
+    return null
   }
 }
 

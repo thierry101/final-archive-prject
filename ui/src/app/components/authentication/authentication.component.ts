@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { roles, genders, ValidatePassword, showError } from 'src/shared/shared'
+import { roles, genders, ValidatePassword, showError, foundToken } from 'src/shared/shared'
 
 @Component({
   selector: 'app-authentication',
@@ -21,7 +22,8 @@ export class AuthenticationComponent implements OnInit {
     password: "",
   }
 
-  constructor(private fb:FormBuilder, private auth:AuthService) { }
+  constructor(private fb:FormBuilder, private auth:AuthService, private router:Router) {
+   }
 
   ngOnInit(): void {
     this.roles = roles;
@@ -66,6 +68,7 @@ export class AuthenticationComponent implements OnInit {
   loginUser(){
     this.auth.login(this.credential).subscribe(res => {
       if (res['token']) {
+        this.router.navigate(['archive/list'])
         // redirect user
         // console.warn("the login are ", res['token'])
       }
