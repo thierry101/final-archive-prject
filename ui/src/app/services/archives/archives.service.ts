@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { foundToken } from 'src/shared/shared';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArchivesService {
+  securityObject!:any;
+  id!:any;
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) { 
+    this.securityObject = foundToken(this.securityObject)
+    this.id = this.securityObject['id']
+  }
 
   readonly APIUrl = "http://127.0.0.1:8000/";
 
@@ -23,7 +29,7 @@ export class ArchivesService {
   
   // ********************** get all Archives **********************************
   getAllArchive(){
-  return this.http.get(this.APIUrl + "archive/api/list-archive/")
+  return this.http.get<any>(this.APIUrl + "archive/api/list-archive/")
   }
 
   getArchiveDetail(id:number){

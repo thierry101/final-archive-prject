@@ -60,7 +60,6 @@ export function foundToken(securityObject:any){
   if (token) {
     securityObject = jwt_decode(token)
     if (securityObject["key"]=="archiSoftware") {
-      console.log("the token is", securityObject)
       return securityObject
     }
     else{

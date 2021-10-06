@@ -99,50 +99,6 @@ class RegisterView(APIView):
                 return Response(errors, status=status.HTTP_400_BAD_REQUEST)
         
         
-        
-       
-
-       
-        
-       
-        #     serializer  = RegisterUserSerializers(data={"username":username, "name":name, "surname":surname,
-        #                 "password":password1, "email":email, "role":role, "gender":gender})
-        #     serializer.is_valid(raise_exception=True)
-        #     serializer.save()
-        #     print("the data are ", serializer.data)
-        #     # user = User.objects.get(email=email)
-        #     # token = RefreshToken.for_user(user).access_token
-        #     # current_site = get_current_site(request).domain #current_site = 127.0.0.1:8000
-        #     # relativeLink= reverse('authentication:auth:email-verify') #relativeLink = /auth/api/email-verify/
-        #     # absurl = "http://"+current_site+relativeLink+"?token="+str(token)
-        #     # email_body = "Hi "+user.username+" Utilisez le lien suivant pour confirmer votre compte \n"+absurl
-        #     # data = {'email_body':email_body, 'email_to':user.email, 'email_suject':"Verifiez votre boite email"}
-        #     # Util.send_email(data)
-        #     return Response('user created', status=status.HTTP_201_CREATED)
-        # else:
-        #     print(errors)
-        #     return Response(errors, status=status.HTTP_400_BAD_REQUEST)
-
-# class UserView(APIView):
-#     def get(self, request):
-#         if request.user.is_authenticated:
-#             print("okk", request.user)
-#         else:
-#             print('no')
-#         token = request.COOKIES.get('jwt')
-#         if not token:
-#             raise AuthenticationFailed("Unauthenticated!")
-#         try:
-#             payload = jwt.decode(token, 'secret', algorithm=["HS256"])
-#         except jwt.ExpiredSignatureError:
-#             raise AuthenticationFailed('Unauthenticated!')
-
-#         user = User.objects.filter(id=payload['id']).first()
-#         serializer = RegisterUserSerializers(user)
-
-#         return Response(serializer.data)
-
-
 class LogoutView(APIView):
     def post(self, request):
         logout(request)

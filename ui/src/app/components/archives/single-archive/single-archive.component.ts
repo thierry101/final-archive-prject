@@ -11,6 +11,7 @@ export class SingleArchiveComponent implements OnInit {
 
   id!:number;
   archive!:any;
+  url:string='http://127.0.0.1:8000'
   files!:any;
 
   constructor(private route:ActivatedRoute, private archiService:ArchivesService) { }
@@ -28,8 +29,6 @@ export class SingleArchiveComponent implements OnInit {
     this.archiService.getArchiveDetail(this.id).subscribe(data =>{
       this.archive = data
       this.files = JSON.parse(data.fileUpload)
-      console.log("the id data is ", this.archive)
-      console.log("the id file is ", this.files)
     })
   }
 
