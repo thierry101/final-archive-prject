@@ -36,6 +36,10 @@ export class ArchivesService {
     return this.http.get<any>(this.APIUrl + "archive/api/archive/"+id+"/")
   }
 
+  delArchive(id:number){
+    return this.http.delete<any>(this.APIUrl + "archive/api/archive/"+id+"/")
+  }
+
   addArchive(data:any){
     return this.http.post(this.APIUrl+"archive/api/add-archive/", data)
   }

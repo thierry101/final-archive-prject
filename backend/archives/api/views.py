@@ -116,4 +116,9 @@ class ArchiveDetailAPIView(APIView):
         serializer = ArchiveSerializers(archive)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
+    def delete(self, request, pk):
+        archive = self.get_object(pk)
+        files = json.loads(archive.fileUpload)
+        deletePathImage(files, 'file')
+        archive.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

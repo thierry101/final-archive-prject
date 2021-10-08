@@ -40,8 +40,8 @@
                     <button class="btn btn-info btn-lg btn-block" (click)="loginUser()" type="button">Se connecter</button>
                   </div>
       
-                  <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Mot de passe oublié ?</a></p>
-                  <p>Vous n'avez pas de compte ? <a (click)="choiceRegister()" href="#!" class="link-info">S'enregistrer</a></p>
+                  <p class="small mb-5 pb-lg-2"><a class="text-muted" [routerLink]="['']">Mot de passe oublié ?</a></p>
+                  <p>Vous n'avez pas de compte ? <a (click)="choiceRegister()" [routerLink]="['']"  class="link-info">S'enregistrer</a></p>
                 </form>
 
 <!-- ****************************** REGISTER PAGE ************************************************* -->
@@ -230,7 +230,7 @@
                         <button type="submit" class="btn btn-primary">S'enregistrer</button>
                         <br>
                         <h4>ou</h4>
-                        <p> <a (click)="choiceLogin()" href="#">Se connecter</a> </p>
+                        <p> <a (click)="choiceLogin()" [routerLink]="['']">Se connecter</a> </p>
                     </div>
                 </form>
 

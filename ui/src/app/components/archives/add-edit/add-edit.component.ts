@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArchivesService } from 'src/app/services/archives/archives.service';
 import { showError, SwallModal, toastShow, foundToken } from 'src/shared/shared';
@@ -9,6 +9,11 @@ import { showError, SwallModal, toastShow, foundToken } from 'src/shared/shared'
   styleUrls: ['./add-edit.component.css']
 })
 export class AddEditComponent implements OnInit {
+
+  // @Input() fromParent:any;
+  @Input() itemSendToParent!:any; //item send to parent to show in single page
+  @Input() reset:boolean=false;
+  @Input() edit:boolean=false;
 
   archiveFrom!:FormGroup;
   allServices!:any;
